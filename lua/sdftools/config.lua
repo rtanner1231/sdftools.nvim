@@ -2,7 +2,9 @@
 local M={}
 
 local defaults={
-    typescriptPath='/TypeScripts/'
+    typescriptPath='/TypeScripts/',
+    toggleTerm=false,
+    terminalSplitDirection='Horizontal',
 }
 
 M.options=defaults

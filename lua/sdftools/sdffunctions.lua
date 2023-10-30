@@ -1,15 +1,10 @@
 local Dialog=require('sdftools/util/dialogutil')
 local File=require('sdftools/util/fileutil')
---local SDFFileDeploy=require('user/custom/sdffiledeploy')
 local Common=require('sdftools/common')
 local FileDeploy=require('sdftools/filedeploy')
+local Output=require('sdftools/output')
 
 local M={}
-
-local send_to_terminal=function(command)
-    local full_command="TermExec cmd='"..command.."'"
-    vim.cmd(full_command)
-end
 
 local deploy_project=function()
     local sdf_account=Common.getSuiteCloudAccount()
@@ -17,7 +12,7 @@ local deploy_project=function()
     local message={sdf_account,"Are you sure you want to deploy?"}
 
     Dialog.confirm(message,function()
-        send_to_terminal('suitecloud project:deploy')
+        Output.runCommand('suitecloud project:deploy')
     end)
 
 
@@ -67,7 +62,7 @@ local deploy_files=function(file_list,is_typescript)
             command='npm run build && '..command
         end
 
-        send_to_terminal(command)
+        Output.runCommand(command)
     end)
 end
 
