@@ -5,7 +5,7 @@ local Config=require('sdftools/config')
 
 local M={}
 
-function cleansTSPath(tspath)
+local function cleansTSPath(tspath)
 
 
     if string.sub(tspath,1,1)~='/' then
