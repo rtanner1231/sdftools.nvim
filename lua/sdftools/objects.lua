@@ -49,13 +49,13 @@ function ObjectUI:new(oTable,submitCallback)
         {
             position="50%",
             size={
-                width=80,
+                width=90,
                 height=40
             }
         },
         Layout.Box({
-            Layout.Box(leftPopup,{size="30%"}),
-            Layout.Box(rightPopup,{size="70%"}),
+            Layout.Box(leftPopup,{size="35%"}),
+            Layout.Box(rightPopup,{size="65%"}),
         },{dir="row"})
     )
 
@@ -261,8 +261,65 @@ local getList=function(scriptId)
     return results
 end
 
+local friendlyMap = {
+    addressForm = "Address Form",
+    advancedpdftemplate = "Advanced PDF",
+    bundleinstallationscript = "Bundle Installation Script",
+    center = "Center",
+    centercategory = "Center Category",
+    centerlink = "Center Link",
+    centertab = "Center Tab",
+    clientscript = "Client Script",
+    crmcustomfield = "CRM Custom Field",
+    csvimport = "CSV Import",
+    customglplugin = "Custom GL Plugin",
+    customlist = "Custom List",
+    customrecordtype = "Custom Record Type",
+    customsegment = "Custom Segment",
+    dataset = "Dataset",
+    emailcaptureplugin = "Email Capture Plugin",
+    emailtemplate = "Email Template",
+    entitycustomfield = "Entity Field",
+    entryForm = "Entry Form",
+    financiallayout = "Financial Layout",
+    integration = "Integration",
+    itemcustomfield = "Item Field",
+    itemoptioncustomfield = "Item Option Field",
+    kpiscorecard = "KPI Scorecard",
+    mapreducescript = "Map Reduce Script",
+    massupdatescript = "Mass Update Script",
+    othercustomfield = "Other Custom Field",
+    paymentgatewayplugin = "Payment Gateway Plugin",
+    plugintype = "Plugin Type",
+    portlet = "Portlet",
+    promotionsplugin = "Promotions Plugin",
+    publisheddashboard = "Published Dashboard",
+    reportdefinition = "Report Definition",
+    restlet = "Restlet",
+    role = "Role",
+    savedsearch = "Saved Search",
+    scheduledscript = "Scheduled Script",
+    secret = "Secret",
+    sspapplication = "SSP Application",
+    sublist = "Sublist",
+    subtab = "Subtab",
+    suitelet = "Suitelet",
+    transactionForm = "Transaction Form",
+    transactionbodycustomfield = "Transaction Body Field",
+    transactioncolumncustomfield = "Transaction Column Field",
+    translationcollection = "Translation Collection",
+    usereventscript = "User Event Script",
+    workbook = "Workbook",
+    workflow = "Workflow",
+    workflowactionscript = "Workflow Action Script"
+}
+
 local getFriendlyTypeName=function(rawName)
-    return rawName
+    if friendlyMap[rawName] then
+        return friendlyMap[rawName]
+    else
+        return rawName
+    end
 end
 
 --@type SDFObjectType
