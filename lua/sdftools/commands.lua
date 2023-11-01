@@ -11,6 +11,7 @@ M.command_list={
     {option_text="Deploy Unstaged changes",value="GitDeployUnstaged",callback=sdffunction.deploy_git_unstaged},
     {option_text="Deploy Staged Changes",value="GitDeployStaged",callback=sdffunction.deploy_git_staged},
     {option_text="Select Account",value="SelectAccount",callback=sdffunction.select_account},
+    {option_text="Import Objects",value="ImportObjects",callback=sdffunction.import_objects},
 }
 
 return M

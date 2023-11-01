@@ -41,6 +41,11 @@ M.scanDir=function(dir)
     return ScanDir.scan_dir(dir,{depth=1})
 end
 
+M.scanDirDirectories=function(dir)
+    return ScanDir.scan_dir(dir,{depth=1,only_dirs=true})
+end
+
+
 M.scanDirRecursive=function(dir)
     return ScanDir.scan_dir(dir)
 end
@@ -53,5 +58,10 @@ end
 M.writeFile=function(path,content)
     Path:new(path):write(content,'w')
 end
+
+M.normalizePath=function(fullPath,cwd)
+    return Path:new(fullPath):normalize(cwd)
+end
+
 
 return M

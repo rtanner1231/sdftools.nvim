@@ -3,6 +3,7 @@ local File=require('sdftools/util/fileutil')
 local Common=require('sdftools/common')
 local FileDeploy=require('sdftools/filedeploy')
 local Output=require('sdftools/output')
+local Objects=require('sdftools/objects')
 
 local M={}
 
@@ -66,6 +67,7 @@ local deploy_files=function(file_list,is_typescript)
     end)
 end
 
+
 --------------------------------------------------------------------------------Entry functions
 
 
@@ -108,6 +110,10 @@ end
 M.deploy_git_staged=function()
     local files,is_typescript=FileDeploy.get_staged_file_list()
     deploy_files(files,is_typescript)
+end
+
+M.import_objects=function()
+    Objects.importObjects()
 end
 
 

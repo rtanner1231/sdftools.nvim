@@ -5,6 +5,7 @@ local defaults={
     typescriptPath='/TypeScripts/',
     toggleTerm=false,
     terminalSplitDirection='Horizontal',
+    sourceDir='src'
 }
 
 M.options=defaults
