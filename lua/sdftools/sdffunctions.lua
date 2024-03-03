@@ -4,6 +4,8 @@ local Common=require('sdftools/common')
 local FileDeploy=require('sdftools/filedeploy')
 local Output=require('sdftools/output')
 local Objects=require('sdftools/objects')
+local Config=require('sdftools/config')
+
 
 local M={}
 
@@ -59,8 +61,8 @@ local deploy_files=function(file_list,is_typescript)
     Dialog.confirm(confirm_message,function()
         local command=FileDeploy.get_command_from_files(file_list)
 
-        if is_typescript then
-            command='npm run build && '..command
+        if is_typescript and Config.options.runTSBuildOnFileUpload then
+            command=Config.options.typescriptBuildCommand..' && '..command
         end
 
         Output.runCommand(command)

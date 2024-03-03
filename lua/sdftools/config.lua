@@ -5,7 +5,9 @@ local defaults={
     typescriptPath='/TypeScripts/',
     toggleTerm=false,
     terminalSplitDirection='Horizontal',
-    sourceDir='src'
+    sourceDir='src',
+    runTSBuildOnFileUpload=true,
+    typescriptBuildCommand='npm run build'
 }
 
 M.options=defaults
