@@ -63,6 +63,9 @@ function ObjectUI:new(oTable,submitCallback)
     self.rightWindow=rightPopup
     self.layout=layout
 
+    self:_setBufReadOnly(leftPopup.bufnr)
+    self:_setBufReadOnly(rightPopup.bufnr)
+
     return oTable
 
 end
@@ -161,7 +164,7 @@ function ObjectUI:drawWindow()
         table.insert(typeLines,v.type)
     end
 
-    vim.api.nvim_buf_set_lines(self.leftWindow.bufnr,0,#typeLines,false,typeLines)
+    self:setLines(self.leftWindow.bufnr,0,#typeLines,false,typeLines)
 
    vim.api.nvim_create_autocmd("CursorMoved", {
 		--group = augroup,
@@ -176,13 +179,30 @@ function ObjectUI:drawWindow()
     self:drawRightPane(1)
 end
 
+function ObjectUI:_setBufEditable(bufnr)
+    vim.api.nvim_buf_set_option(bufnr,'modifiable',true)
+    vim.api.nvim_buf_set_option(bufnr,'readonly',false)
+end
+
+function ObjectUI:_setBufReadOnly(bufnr)
+    vim.api.nvim_buf_set_option(bufnr,'modifiable',false)
+    vim.api.nvim_buf_set_option(bufnr,'readonly',true)
+end
+
+function ObjectUI:setLines(bufnr,startLine,endLine,strictIndexing,replacement)
+    self:_setBufEditable(bufnr) 
+    vim.api.nvim_buf_set_lines(bufnr,startLine,endLine,strictIndexing,replacement)
+    self:_setBufReadOnly(bufnr)
+
+end
+
 function ObjectUI:drawRightPane(idx)
     local obj=self.objectTable[idx]
 
 
     local lines=vim.api.nvim_buf_get_lines(self.rightWindow.bufnr,0,-1,true)
 
-    vim.api.nvim_buf_set_lines(self.rightWindow.bufnr,0,#lines,false,{})
+    self:setLines(self.rightWindow.bufnr,0,#lines,false,{})
 
     local objectLines={}
 
@@ -190,7 +210,7 @@ function ObjectUI:drawRightPane(idx)
         table.insert(objectLines,v.name)
     end
 
-    vim.api.nvim_buf_set_lines(self.rightWindow.bufnr,0,#objectLines,false,objectLines)
+    self:setLines(self.rightWindow.bufnr,0,#objectLines,false,objectLines)
 
     for k,v in ipairs(obj.objects) do
         if(v.sel) then
