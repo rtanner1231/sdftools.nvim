@@ -6,6 +6,7 @@ local File = require("sdftools/util/fileutil")
 local Config = require("sdftools/config")
 local Dialog = require("sdftools/util/dialogutil")
 local Output = require("sdftools/output")
+local Common = require("sdftools/common")
 
 local M = {}
 
@@ -251,17 +252,6 @@ function ObjectUI:toggleType()
 	end
 end
 
-local splitString = function(inputstr, sep)
-	if sep == nil then
-		sep = "%s"
-	end
-	local t = {}
-	for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
-		table.insert(t, str)
-	end
-	return t
-end
-
 local getList = function(scriptId)
 	local results = vim.fn.systemlist("suitecloud object:list --scriptid " .. scriptId)
 
@@ -344,7 +334,7 @@ local formatList = function(rawList)
 	local typeRet = {}
 
 	for _, v in pairs(rawList) do
-		local splitTokens = splitString(v, ":")
+		local splitTokens = Common.splitString(v, ":")
 
 		local type = getFriendlyTypeName(splitTokens[1])
 		local objectName = splitTokens[2]
