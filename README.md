@@ -59,7 +59,8 @@ This plugin supports the below commands. All commands are accessible from the op
 
 - `:SDF` - Show the options menu
 - `:SDF Deploy` - Deploy the current project (Uses `suitecloud project:deploy`)
-- `:SDF DeployCurrentFolder` - Uploads files in the current directory. This does not recursively upload files in subdirectories. (Uses `suitecloud file:upload`)
+- `:SDF DeployDirectory` - Open the directory picker dialog to select a directory to upload. Navigate down the directory tree with 'l' and up with 'h'. This does not recursively upload files in subdirectories. (Uses `suitecloud file:upload`)
+- `:SDF DeployDirectoryRecursive` - Open the directory picker dialog to select a directory to upload. Navigate down the directory tree with 'l' and up with 'h'. This recursively uploads files in subdirectories. (Uses `suitecloud file:upload`)
 - `:SDF DeployCurrentFile` - Uploads the file in the currently opened buffer. (Uses `suitecloud file:upload`)
 - `:SDF GitDeployUnstaged` - Runs the git command `git diff --name-only` to get the unstaged files and uploads them. Untracked files are not uploaded. (Uses `suitecloud file:upload`)
 - `:SDF GitDeployStaged` - Runs the git command `git diff --name-only --staged` to get the staged files and uploads them. (Uses `suitecloud file:upload`)
@@ -70,9 +71,10 @@ This plugin supports the below commands. All commands are accessible from the op
 
 ## Uploading files
 
-This plugin provides four commands for uploading individual files:
+This plugin provides five commands for uploading individual files:
 
-- `:SDF DeployCurrentFolder`
+- `:SDF DeployDirectory`
+- `:SDF DeployDirectoryRecursive`
 - `:SDF DeployCurrentFile`
 - `:SDF GitDeployUnstaged`
 - `:SDF GitDeployStaged`

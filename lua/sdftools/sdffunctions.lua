@@ -5,6 +5,7 @@ local FileDeploy = require("sdftools/filedeploy")
 local Output = require("sdftools/output")
 local Objects = require("sdftools/objects")
 local Config = require("sdftools/config")
+local DirectoryPicker = require("sdftools/directorypicker")
 
 local M = {}
 
@@ -62,6 +63,18 @@ local deploy_files = function(file_list, is_typescript)
 	end)
 end
 
+local do_deploy_dir = function(recursive)
+	local callback = function(selected_dir)
+		local files, is_typescript = FileDeploy.get_dir_file_list(recursive, selected_dir)
+
+		deploy_files(files, is_typescript)
+	end
+
+	local currentDirectory = FileDeploy.get_current_directory()
+
+	DirectoryPicker.open_directory_picker(callback, currentDirectory)
+end
+
 --------------------------------------------------------------------------------Entry functions
 
 M.deploy = function()
@@ -74,9 +87,11 @@ M.select_account = function()
 end
 
 M.deploy_dir = function()
-	local files, is_typescript = FileDeploy.get_dir_file_list()
+	do_deploy_dir(false)
+end
 
-	deploy_files(files, is_typescript)
+M.deploy_dir_recursive = function()
+	do_deploy_dir(true)
 end
 
 M.deploy_file = function()

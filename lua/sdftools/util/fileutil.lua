@@ -1,67 +1,68 @@
+local M = {}
 
-local M={}
+local Path = require("plenary.path")
+local ScanDir = require("plenary.scandir")
 
-local Path=require('plenary.path')
-local ScanDir=require('plenary.scandir')
-
-M.pathcombine=function(path1,path2)
-    return Path:new(path1):joinpath(path2).filename
+M.pathcombine = function(path1, path2)
+	return Path:new(path1):joinpath(path2).filename
 end
 
-M.getFileExt=function(filename)
-  return filename:match("^.+(%..+)$")
+M.getFileExt = function(filename)
+	return filename:match("^.+(%..+)$")
 end
 
-M.getDirFromPath=function(full_path)
-    local path_tokens={}
-  for token in full_path:gmatch '[^/]+' do
-    table.insert(path_tokens, token)
-  end
+--Return the directory part of the path
+M.getDirFromPath = function(full_path)
+	local path_tokens = {}
+	for token in full_path:gmatch("[^/]+") do
+		table.insert(path_tokens, token)
+	end
 
-    local len=#path_tokens
+	local len = #path_tokens
 
-    table.remove(path_tokens,len)
+	table.remove(path_tokens, len)
 
-    local ret=''
+	local ret = ""
 
-    for _,v in pairs(path_tokens) do
-        ret=ret..'/'..v
-    end
+	for _, v in pairs(path_tokens) do
+		ret = ret .. "/" .. v
+	end
 
-    return ret
-
+	return ret
 end
 
-M.fileExists=function(file_path)
-    return Path:new(file_path):exists()
+M.fileExists = function(file_path)
+	return Path:new(file_path):exists()
 end
 
+M.scanDir = function(dir, isRecursive)
+	local options = {}
 
-M.scanDir=function(dir)
-    return ScanDir.scan_dir(dir,{depth=1})
+	if isRecursive == false or isRecursive == nil then
+		options.depth = 1
+	end
+
+	return ScanDir.scan_dir(dir, options)
 end
 
-M.scanDirDirectories=function(dir)
-    return ScanDir.scan_dir(dir,{depth=1,only_dirs=true})
+M.scanDirDirectories = function(dir)
+	return ScanDir.scan_dir(dir, { depth = 1, only_dirs = true })
 end
 
-
-M.scanDirRecursive=function(dir)
-    return ScanDir.scan_dir(dir)
+M.scanDirDirectoriesRecursive = function(dir)
+	return ScanDir.scan_dir(dir, { only_dirs = true })
 end
 
-
-M.readFile=function(path)
-    return Path:new(path):read()
+M.readFile = function(path)
+	return Path:new(path):read()
 end
 
-M.writeFile=function(path,content)
-    Path:new(path):write(content,'w')
+M.writeFile = function(path, content)
+	Path:new(path):write(content, "w")
 end
 
-M.normalizePath=function(fullPath,cwd)
-    return Path:new(fullPath):normalize(cwd)
+M.normalizePath = function(fullPath, cwd)
+	return Path:new(fullPath):normalize(cwd)
 end
-
 
 return M
