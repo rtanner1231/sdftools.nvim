@@ -66,6 +66,7 @@ This plugin supports the below commands. All commands are accessible from the op
 - `:SDF GitDeployStaged` - Runs the git command `git diff --name-only --staged` to get the staged files and uploads them. (Uses `suitecloud file:upload`)
 - `:SDF SelectAccount` - Show an options picked to select the Netsuite account to use. Either press the number next to the account or place your cursor over the line with the account and press enter to select. Press q to cancel. (Uses `suitecloud account:setup`)
 - `:SDF ImportObjects` - Show a dialog to pick objects to import into the project. (Uses `suitecloud object:list` and `suitecloud object:import`)
+- `:SDF AddDependencies` - Add dependencies to the project.
 
 # Usage
 

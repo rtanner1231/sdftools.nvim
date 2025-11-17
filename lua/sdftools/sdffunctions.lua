@@ -75,6 +75,12 @@ local do_deploy_dir = function(recursive)
     DirectoryPicker.open_directory_picker(callback, currentDirectory)
 end
 
+local doAddDependencies = function()
+    local command = "suitecloud project:adddependencies"
+
+    Output.runCommand(command)
+end
+
 --------------------------------------------------------------------------------Entry functions
 
 M.deploy = function()
@@ -127,5 +133,10 @@ end
 M.import_objects = function()
     Objects.importObjects()
 end
+
+M.add_dependencies = function()
+    doAddDependencies()
+end
+
 
 return M
